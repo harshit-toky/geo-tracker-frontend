@@ -8,7 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const navigate = useNavigate();
-
+  const API = "https://geo-tracker-backend.onrender.com";
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -18,12 +18,18 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/register", {
+      // const res = await axios.post("http://localhost:5000/api/register", {
+      //   username,
+      //   email,
+      //   password,
+      // }, { withCredentials: true });
+
+      const res = await axios.post(`${API}/api/register`, {
         username,
         email,
         password,
       }, { withCredentials: true });
-
+      
       alert(res.data.message);
       navigate("/");
     } catch (err) {

@@ -6,7 +6,7 @@ const Navbar = ({ authState, setAuthState }) => {
   // const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-
+  const api = 'https://geo-tracker-backend.onrender.com';
   // Check session on component mount and when navigate changes
   // useEffect(() => {
   //   const checkSession = async () => {
@@ -29,7 +29,10 @@ const Navbar = ({ authState, setAuthState }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/api/logout", {}, {
+      // await axios.post("http://localhost:5000/api/logout", {}, {
+      //   withCredentials: true
+      // });
+      await axios.post(`${api}/api/logout`, {}, {
         withCredentials: true
       });
       setAuthState({ username: "", isAuthenticated: false, isLoading: false });

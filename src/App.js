@@ -13,13 +13,16 @@ function App() {
     isAuthenticated: false,
     isLoading: true
   });
-
+  const APi = "https://geo-tracker-backend.onrender.com";
   // Check authentication status
   const checkAuth = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/user", {
-        withCredentials: true
-      });
+      // const response = await axios.get("http://localhost:5000/api/user", {
+      //   withCredentials: true
+      // });
+      const response = await axios.get(`${APi}/api/user`, {
+          withCredentials: true
+        });
       setAuthState({
         username: response.data.user.username,
         isAuthenticated: true,

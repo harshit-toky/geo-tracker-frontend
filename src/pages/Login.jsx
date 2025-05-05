@@ -6,11 +6,15 @@ const Login = ({ setAuthState }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const API = "https://geo-tracker-backend.onrender.com";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/login", 
+      // const response = await axios.post("http://localhost:5000/api/login", 
+      //   { username, password },
+      //   { withCredentials: true }
+      // );
+      const response = await axios.post(`${API}/api/login`, 
         { username, password },
         { withCredentials: true }
       );
