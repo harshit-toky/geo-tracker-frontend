@@ -29,12 +29,12 @@ const Navbar = ({ authState, setAuthState }) => {
 
   const handleLogout = async () => {
     try {
-      // await axios.post("http://localhost:5000/api/logout", {}, {
-      //   withCredentials: true
-      // });
-      await axios.post(`${api}/api/logout`, {}, {
+      await axios.post("http://localhost:5000/api/logout", {}, {
         withCredentials: true
       });
+      // await axios.post(`${api}/api/logout`, {}, {
+      //   withCredentials: true
+      // });
       setAuthState({ username: "", isAuthenticated: false, isLoading: false });
       navigate("/");
     } catch (error) {
@@ -48,7 +48,8 @@ const Navbar = ({ authState, setAuthState }) => {
       <div className="flex items-center space-x-6">
         <div className="text-2xl font-extrabold">🌍 GeoTracker</div>
         <Link to="/" className="text-lg hover:text-yellow-200">Home</Link>
-      </div>
+        <Link to="/friends" className="text-lg hover:text-yellow-200">Friends</Link>
+     </div>
 
       {/* Right Section */}
       <div>

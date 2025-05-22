@@ -1,33 +1,50 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import api from "../api";
+import { getFcmToken } from "./FirebaseConfig";
+import socket from "./socket";
 
-const Login = ({ setAuthState }) => {
+const Login = ({ setAuthState}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const API = "https://geo-tracker-backend.onrender.com";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // const response = await axios.post("http://localhost:5000/api/login", 
-      //   { username, password },
-      //   { withCredentials: true }
-      // );
-      const response = await axios.post(`${API}/api/login`, 
-        { username, password },
-        { withCredentials: true }
+      const fcmToken = await getFcmToken();
+            if (!fcmToken) {
+        console.warn('FCM token not available (might be due to blocked notifications)');
+      }
+      const response = await api.post("/api/login", 
+        { username, password, fcmToken }
       );
+      // console.log('Full response:', response); // Debug log
+
+      try{
       setAuthState({
         username: username,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
+        socketRegistered: true
       });
+
+      if (socket.connected) {
+        socket.emit('register-user', username);
+      } else {
+        socket.once('connect', () => {
+          socket.emit('register-user', username);
+        });
+      }
+
       navigate("/");
+    }catch(err){
+      console.log("Post-login error");
+    }
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
   };
+
   
 
   return (
