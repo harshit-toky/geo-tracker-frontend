@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 const Navbar = ({ authState, setAuthState }) => {
   // const [userName, setUserName] = useState("");
@@ -29,9 +29,7 @@ const Navbar = ({ authState, setAuthState }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/api/logout", {}, {
-        withCredentials: true
-      });
+      await api.post("/api/logout");
       // await axios.post(`${api}/api/logout`, {}, {
       //   withCredentials: true
       // });
