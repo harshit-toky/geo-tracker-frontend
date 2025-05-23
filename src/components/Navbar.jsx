@@ -6,7 +6,7 @@ const Navbar = ({ authState, setAuthState }) => {
   // const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const api = 'https://geo-tracker-backend.onrender.com';
+  // const api = 'https://geo-tracker-backend.onrender.com';
   // Check session on component mount and when navigate changes
   // useEffect(() => {
   //   const checkSession = async () => {
